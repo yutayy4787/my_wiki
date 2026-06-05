@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Wiki | 目次</title>
+  <style>
+    :root {
+      --bg: #f5f7f8;
+      --panel: #ffffff;
+      --ink: #17202a;
+      --muted: #5d6b78;
+      --line: #d8e0e6;
+      --accent: #176b87;
+      --accent-2: #d9480f;
+      --soft: #e8f3f6;
+      --dark: #0f1f29;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+    }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    header {
+      background: var(--dark);
+      color: #fff;
+      border-bottom: 5px solid var(--accent);
+    }
+    .hero { padding: 52px 0 34px; }
+    .eyebrow {
+      color: #9bd3e1;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 8px 0 12px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      color: #d8e3e9;
+      font-size: 1.05rem;
+    }
+    main { padding: 34px 0 56px; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    h2 {
+      margin: 0;
+      font-size: 1.42rem;
+      line-height: 1.25;
+    }
+    .hint { margin: 0; color: var(--muted); font-size: .94rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      display: block;
+      min-height: 190px;
+      padding: 20px;
+      color: inherit;
+      text-decoration: none;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(15, 31, 41, .06);
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      transition: .16s ease;
+    }
+    .tag {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--accent-2);
+      font-size: .8rem;
+      font-weight: 800;
+    }
+    h3 {
+      margin: 0 0 10px;
+      font-size: 1.22rem;
+      line-height: 1.3;
+    }
+    .card p { margin: 0; color: var(--muted); }
+    section + section { margin-top: 32px; }
+    .placeholder {
+      padding: 22px;
+      background: var(--panel);
+      border: 1px dashed #b8c6d0;
+      border-radius: 8px;
+      color: var(--muted);
+    }
+    footer {
+      padding: 18px 0 30px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+    @media (max-width: 560px) {
+      .hero { padding-top: 38px; }
+      .grid { grid-template-columns: 1fr; }
+      .card { min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div class="eyebrow">Knowledge Base</div>
+      <h1>My Wiki</h1>
+      <p class="lead">開発、運用、調査、チーム内ナレッジなど、これから追加される資料への入口です。</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <div class="section-head">
+        <h2>資料一覧</h2>
+        <p class="hint">よく使う資料から順に追加してください。</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="codex/index.html">
+          <span class="tag">CODEx</span>
+          <h3>Codex Wiki</h3>
+          <p>Codexの利用方法、依頼例、チートシート、おすすめプラグインをまとめた社内向けガイドです。</p>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>追加予定</h2>
+        <p class="hint">新しい資料カテゴリの置き場です。</p>
+      </div>
+      <div class="placeholder">
+        新しい資料を追加したら、このページにカテゴリカードを追加してください。例: `infra/index.html`, `onboarding/index.html`, `runbooks/index.html`
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">My Wiki</div>
+  </footer>
+</body>
+</html>
