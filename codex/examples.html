@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Wiki | 利用例</title>
+  <style>
+    :root { --bg:#f6f7f9; --panel:#fff; --ink:#17202a; --muted:#607080; --line:#d9e0e7; --accent:#176b87; --accent-2:#d9480f; --soft:#e9f4f7; --code:#10212b; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.7; color:var(--ink); background:var(--bg); }
+    .wrap { width:min(1040px, calc(100% - 32px)); margin:0 auto; }
+    header { background:#0f1f29; color:#fff; border-bottom:5px solid var(--accent); }
+    .hero { padding:42px 0 24px; }
+    .eyebrow { color:#9bd3e1; font-weight:700; letter-spacing:.08em; font-size:.78rem; text-transform:uppercase; }
+    h1 { margin:8px 0 10px; font-size:clamp(1.9rem,4vw,3.2rem); line-height:1.12; letter-spacing:0; }
+    .lead { max-width:780px; margin:0; color:#d6e1e7; }
+    nav.top { display:flex; gap:8px; flex-wrap:wrap; padding:14px 0; border-top:1px solid rgba(255,255,255,.16); }
+    nav.top a { color:#fff; text-decoration:none; padding:8px 12px; border:1px solid rgba(255,255,255,.2); border-radius:6px; font-size:.94rem; }
+    main { padding:30px 0 56px; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    article { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:22px; }
+    h2 { margin:0 0 10px; font-size:1.25rem; line-height:1.3; }
+    p { margin:0 0 12px; color:var(--muted); }
+    pre { margin:12px 0 0; padding:14px; overflow:auto; color:#fff; background:var(--code); border-radius:6px; line-height:1.5; }
+    code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.92em; }
+    .tag { display:inline-block; color:#7a2e0b; background:#fff0e5; border:1px solid #ffd2b7; border-radius:999px; padding:2px 9px; font-size:.78rem; font-weight:700; margin-bottom:10px; }
+    footer { color:var(--muted); border-top:1px solid var(--line); padding:18px 0 30px; }
+    @media (max-width:760px){ .grid{grid-template-columns:1fr;} article{padding:18px;} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div class="eyebrow">Codex Wiki</div>
+      <h1>利用例</h1>
+      <p class="lead">そのまま貼って使える依頼例です。対象ファイル名やコマンドだけプロジェクトに合わせて変更してください。</p>
+    </div>
+    <nav class="wrap top" aria-label="主要ページ">
+      <a href="index.html">目次</a>
+      <a href="usage.html">利用方法</a>
+      <a href="cheatsheet.html">チートシート</a>
+      <a href="plugins.html">おすすめプラグイン</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <div class="grid">
+      <article>
+        <span class="tag">コード理解</span>
+        <h2>大きなコードベースの入口を探す</h2>
+        <p>新しいリポジトリで、処理の流れと主要ファイルを把握したいとき。</p>
+        <pre><code>このリポジトリの全体構成を調査してください。
+ユーザー登録処理の入口、主要なモジュール、データ保存までの流れを説明してください。
+まだファイルは編集しないでください。</code></pre>
+      </article>
+
+      <article>
+        <span class="tag">実装</span>
+        <h2>小さく機能追加する</h2>
+        <p>対象範囲と互換性を明示して、余計な変更を避けます。</p>
+        <pre><code>一覧画面にステータス絞り込みを追加してください。
+対象は src/orders 配下です。
+既存のURLパラメータとAPIレスポンス形式は変えないでください。
+関連テストも追加してください。</code></pre>
+      </article>
+
+      <article>
+        <span class="tag">バグ修正</span>
+        <h2>原因調査から修正まで任せる</h2>
+        <p>再現条件、期待値、検証コマンドを渡します。</p>
+        <pre><code>注文詳細で数量を0にすると保存後に500になります。
+期待値はバリデーションエラー表示です。
+原因を調査し、最小変更で修正してください。
+最後に再発防止のテストを実行してください。</code></pre>
+      </article>
+
+      <article>
+        <span class="tag">レビュー</span>
+        <h2>差分レビューを依頼する</h2>
+        <p>バグ、セキュリティ、テスト不足を優先して見てもらいます。</p>
+        <pre><code>現在の差分をコードレビューしてください。
+優先順位は、バグ、セキュリティ、データ破壊、テスト不足です。
+指摘はファイル名と行番号付きで、重大なものから並べてください。</code></pre>
+      </article>
+
+      <article>
+        <span class="tag">UI</span>
+        <h2>既存デザインに合わせて画面を作る</h2>
+        <p>既存コンポーネントとレスポンシブ確認を指定します。</p>
+        <pre><code>管理画面に請求履歴ページを追加してください。
+既存のテーブル、ボタン、ページレイアウト部品を使ってください。
+モバイルとデスクトップで表示崩れがないか確認してください。</code></pre>
+      </article>
+
+      <article>
+        <span class="tag">ドキュメント</span>
+        <h2>仕様変更をドキュメントへ反映する</h2>
+        <p>実装とREADMEのズレを調べて更新します。</p>
+        <pre><code>現在の実装を確認し、READMEのセットアップ手順と環境変数一覧を最新化してください。
+推測で書かず、コードや設定ファイルから確認できる内容だけにしてください。</code></pre>
+      </article>
+
+      <article>
+        <span class="tag">リファクタ</span>
+        <h2>振る舞いを変えずに整理する</h2>
+        <p>テストで守りながら、変更範囲を限定します。</p>
+        <pre><code>src/payments の重複したバリデーション処理を整理してください。
+外部APIの呼び出し順序とエラーメッセージは変えないでください。
+変更前後で既存テストが通ることを確認してください。</code></pre>
+      </article>
+
+      <article>
+        <span class="tag">自動化</span>
+        <h2>定型作業をSkill化する</h2>
+        <p>繰り返すレビューやレポート作成はSkill候補です。</p>
+        <pre><code>このリポジトリで毎週行っているリリースノート作成手順をSkillにしてください。
+入力、参照するファイル、出力形式、確認項目をSKILL.mdにまとめてください。</code></pre>
+      </article>
+    </div>
+  </main>
+  <footer><div class="wrap">Codex Wiki</div></footer>
+</body>
+</html>

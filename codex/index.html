@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Wiki | 目次</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #17202a;
+      --muted: #607080;
+      --line: #d9e0e7;
+      --accent: #176b87;
+      --accent-2: #d9480f;
+      --soft: #e9f4f7;
+      --code: #10212b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    header {
+      background: #0f1f29;
+      color: #fff;
+      border-bottom: 5px solid var(--accent);
+    }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .hero { padding: 56px 0 34px; }
+    .eyebrow { color: #9bd3e1; font-weight: 700; letter-spacing: .08em; font-size: .78rem; text-transform: uppercase; }
+    h1 { margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 4.1rem); line-height: 1.08; letter-spacing: 0; }
+    .lead { max-width: 760px; margin: 0; color: #d6e1e7; font-size: 1.08rem; }
+    nav.top {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255,255,255,.16);
+    }
+    nav.top a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 6px;
+      font-size: .94rem;
+    }
+    main { padding: 34px 0 56px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .card {
+      display: block;
+      min-height: 210px;
+      padding: 20px;
+      color: inherit;
+      text-decoration: none;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(15, 31, 41, .06);
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); transition: .16s ease; }
+    .num { color: var(--accent-2); font-size: .82rem; font-weight: 800; }
+    h2 { margin: 6px 0 10px; font-size: 1.28rem; line-height: 1.3; }
+    .card p { margin: 0; color: var(--muted); }
+    section {
+      margin-top: 28px;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    section h2 { margin-top: 0; }
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    ul { padding-left: 1.2rem; }
+    code {
+      color: #fff;
+      background: var(--code);
+      padding: .12em .36em;
+      border-radius: 4px;
+      font-size: .92em;
+    }
+    footer { color: var(--muted); border-top: 1px solid var(--line); padding: 18px 0 30px; }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .split { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 38px; }
+      section { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div class="eyebrow">Team Knowledge Base</div>
+      <h1>Codex Wiki</h1>
+      <p class="lead">Codexを日常の開発、調査、レビュー、ドキュメント作成で使うための社内向けクイックガイドです。</p>
+    </div>
+    <nav class="wrap top" aria-label="主要ページ">
+      <a href="usage.html">利用方法</a>
+      <a href="examples.html">利用例</a>
+      <a href="cheatsheet.html">チートシート</a>
+      <a href="plugins.html">おすすめプラグイン</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="grid" aria-label="目次">
+      <a class="card" href="usage.html">
+        <div class="num">01</div>
+        <h2>利用方法</h2>
+        <p>起動、依頼の書き方、承認、AGENTS.md、Skills、MCPの使い分けを整理します。</p>
+      </a>
+      <a class="card" href="examples.html">
+        <div class="num">02</div>
+        <h2>利用例</h2>
+        <p>コード理解、修正、レビュー、UI作成、ドキュメント更新など、すぐ使える依頼例を掲載します。</p>
+      </a>
+      <a class="card" href="cheatsheet.html">
+        <div class="num">03</div>
+        <h2>チートシート</h2>
+        <p>よく使うコマンド、プロンプト型、確認観点、トラブル時の切り分けを短くまとめます。</p>
+      </a>
+      <a class="card" href="plugins.html">
+        <div class="num">04</div>
+        <h2>おすすめプラグイン</h2>
+        <p>Codex Security、Google Drive、Gmail、Slack、Sitesなど、用途別に導入候補を選びます。</p>
+      </a>
+    </div>
+
+    <section>
+      <h2>このWikiの前提</h2>
+      <div class="split">
+        <div>
+          <p>Codexは、ローカルのリポジトリを読み、編集し、コマンドを実行できるコーディングエージェントです。CLI、IDE拡張、Codexアプリなど複数の利用面があります。</p>
+          <ul>
+            <li>単発の作業指示はスレッド内のプロンプトで管理します。</li>
+            <li>リポジトリ固有のルールは <code>AGENTS.md</code> に寄せます。</li>
+            <li>繰り返す作業手順はSkill化し、配布したい場合はPlugin化します。</li>
+          </ul>
+        </div>
+        <div>
+          <p>最初に読む順番は、利用方法、チートシート、利用例、おすすめプラグインです。運用に乗ったら、チームの標準プロンプトやレビュー観点をこのWikiに追記します。</p>
+          <ul>
+            <li>大きな変更は「調査、計画、実装、検証」に分けて依頼します。</li>
+            <li>外部サービス接続は権限、認証、データ共有範囲を確認します。</li>
+            <li>生成された差分は必ず人間が確認してから取り込みます。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Last updated: 2026-06-06</div>
+  </footer>
+</body>
+</html>
