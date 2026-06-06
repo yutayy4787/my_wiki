@@ -38,7 +38,7 @@
     <div class="wrap hero">
       <div class="eyebrow">Codex Wiki</div>
       <h1>チートシート</h1>
-      <p class="lead">よく使う操作、プロンプト型、レビュー観点を短く確認するページです。</p>
+      <p class="lead">Codex CLIのメタコマンド、よく使う依頼の型、レビュー観点を短く確認するページです。</p>
     </div>
     <nav class="wrap top" aria-label="主要ページ">
       <a href="index.html">目次</a>
@@ -49,16 +49,69 @@
   </header>
   <main class="wrap">
     <section>
-      <h2>基本操作</h2>
+      <h2>CLIメタコマンド</h2>
       <table>
-        <thead><tr><th>やりたいこと</th><th>操作、依頼</th></tr></thead>
+        <thead><tr><th>コマンド</th><th>用途</th><th>使う場面</th></tr></thead>
         <tbody>
-          <tr><td>Codexを起動</td><td><code>codex</code></td></tr>
-          <tr><td>プラグイン一覧を開く</td><td>CLI内で <code>/plugins</code></td></tr>
-          <tr><td>Skillを明示利用</td><td><code>$skill-name</code> をプロンプトに含める</td></tr>
-          <tr><td>モデルや推論設定を変える</td><td>CLI内で <code>/model</code></td></tr>
-          <tr><td>レビューを依頼</td><td>「現在の差分を重大度順にレビューして」</td></tr>
-          <tr><td>編集せず調査</td><td>「まだファイルは変更せず、原因だけ調べて」</td></tr>
+          <tr><td><code>/permissions</code></td><td>承認、読み取り、書き込み、ネットワークなどの許可範囲を調整</td><td>作業中に安全側へ寄せる、または承認回数を減らす</td></tr>
+          <tr><td><code>/model</code></td><td>モデルや推論設定を変更</td><td>軽い調査と重い設計、レビューで使い分ける</td></tr>
+          <tr><td><code>/fast</code></td><td>利用可能な場合にFast tierを切り替え</td><td>応答速度を優先したい短い作業</td></tr>
+          <tr><td><code>/plan</code></td><td>実装前に計画を出すモードへ切り替え</td><td>大きめの変更、危険な変更、方針確認が必要な作業</td></tr>
+          <tr><td><code>/goal</code></td><td>長めのタスク目標を設定、確認、停止、再開</td><td>複数ターンにまたがる調査や改修</td></tr>
+          <tr><td><code>/status</code></td><td>現在のセッション状態を確認</td><td>モデル、権限、作業状態を見直す</td></tr>
+          <tr><td><code>/compact</code></td><td>長い会話を要約してコンテキストを節約</td><td>長時間作業で履歴が重くなったとき</td></tr>
+          <tr><td><code>/clear</code></td><td>表示と会話をリセットして新しく始める</td><td>前提を切り替えて別作業に移る</td></tr>
+          <tr><td><code>/copy</code></td><td>直近のCodex出力をコピー</td><td>計画、レビュー結果、説明文を転記する</td></tr>
+          <tr><td><code>/exit</code> / <code>/quit</code></td><td>Codex CLIを終了</td><td>作業を終える</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>文脈、拡張、連携</h2>
+      <table>
+        <thead><tr><th>コマンド</th><th>用途</th><th>使う場面</th></tr></thead>
+        <tbody>
+          <tr><td><code>/mention</code></td><td>ファイルやフォルダを会話へ添付</td><td>特定ファイルを必ず見てほしいとき</td></tr>
+          <tr><td><code>/ide</code></td><td>IDEで開いているファイルや選択範囲を取り込む</td><td>エディタ上の文脈を説明せず渡す</td></tr>
+          <tr><td><code>/plugins</code></td><td>Pluginの一覧、詳細、インストール、有効化を管理</td><td>外部連携や配布済みワークフローを追加する</td></tr>
+          <tr><td><code>/skills</code></td><td>利用可能なSkillを確認、選択</td><td>レビュー、ドキュメント更新、リリース作業などの定型手順を使う</td></tr>
+          <tr><td><code>@plugin-name</code></td><td>PluginやPlugin内のSkillを明示的に呼び出す</td><td>どの拡張を使うかCodexに任せたくないとき</td></tr>
+          <tr><td><code>/apps</code></td><td>アプリ、コネクタをプロンプトへ追加</td><td>Google Drive、Slack、Gmailなどの外部データを使う</td></tr>
+          <tr><td><code>/mcp</code></td><td>設定済みMCPツールを確認</td><td>外部ツールや社内システム連携の状態を見る</td></tr>
+          <tr><td><code>/hooks</code></td><td>ライフサイクルフックを確認、信頼、無効化</td><td>コマンド実行や編集前後の自動処理を点検する</td></tr>
+          <tr><td><code>/init</code></td><td><code>AGENTS.md</code> の雛形を生成</td><td>リポジトリ固有の恒久ルールを作り始める</td></tr>
+          <tr><td><code>/memories</code></td><td>メモリ利用や生成を設定</td><td>個人向けの継続的な文脈を調整する</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>実行中の操作</h2>
+      <table>
+        <thead><tr><th>コマンド</th><th>用途</th><th>使う場面</th></tr></thead>
+        <tbody>
+          <tr><td><code>/diff</code></td><td>Git差分と未追跡ファイルを表示</td><td>Codexの編集内容をコミット前に確認する</td></tr>
+          <tr><td><code>/approve</code></td><td>自動レビューで拒否された操作を一度だけ再承認</td><td>安全性を確認済みのコマンドを再試行する</td></tr>
+          <tr><td><code>/agent</code></td><td>サブエージェントのスレッドを切り替え</td><td>分担した調査や検証結果を確認する</td></tr>
+          <tr><td><code>/ps</code></td><td>バックグラウンド端末の状態を表示</td><td>長時間コマンドの出力や進捗を見る</td></tr>
+          <tr><td><code>/stop</code></td><td>バックグラウンド端末を停止</td><td>不要なサーバーや長い検証を止める</td></tr>
+          <tr><td><code>/feedback</code></td><td>ログを添えてフィードバックを送る</td><td>Codex自体の不具合を報告する</td></tr>
+          <tr><td><code>/logout</code></td><td>サインアウト</td><td>共有端末や認証切り替え時</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>入力、表示、実験機能</h2>
+      <table>
+        <thead><tr><th>コマンド</th><th>用途</th><th>使う場面</th></tr></thead>
+        <tbody>
+          <tr><td><code>/keymap</code></td><td>TUIのキーボードショートカットを確認、変更</td><td>よく使う操作を自分のキー割り当てに寄せる</td></tr>
+          <tr><td><code>/vim</code></td><td>入力欄のVimモードを切り替え</td><td>Vim操作でプロンプトを編集したいとき</td></tr>
+          <tr><td><code>/raw</code></td><td>生の入力や出力を扱うモードを切り替え</td><td>整形を抑えて内容を渡したい、確認したいとき</td></tr>
+          <tr><td><code>/experimental</code></td><td>実験的な機能を切り替え</td><td>サブエージェントなど任意機能を試す</td></tr>
+          <tr><td><code>/sandbox-add-read-dir</code></td><td>追加ディレクトリの読み取り許可を付与</td><td>Windowsで作業ルート外の絶対パスを読む必要があるとき</td></tr>
         </tbody>
       </table>
     </section>

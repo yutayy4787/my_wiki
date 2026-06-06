@@ -25,7 +25,12 @@
     p { margin:0 0 12px; color:var(--muted); }
     ul, ol { padding-left:1.2rem; margin:0 0 12px; }
     li { margin:5px 0; }
+    table { width:100%; border-collapse:collapse; margin-top:8px; }
+    th, td { border:1px solid var(--line); padding:10px; text-align:left; vertical-align:top; }
+    th { background:var(--soft); }
     code { color:#fff; background:var(--code); border-radius:4px; padding:.12em .36em; font-size:.92em; }
+    pre { padding:14px; overflow:auto; color:#fff; background:var(--code); border-radius:6px; line-height:1.5; }
+    pre code { padding:0; background:transparent; }
     .label { display:inline-block; color:#0f3d4b; background:var(--soft); border:1px solid #cfe4eb; border-radius:999px; padding:2px 9px; font-size:.78rem; font-weight:700; margin-bottom:10px; }
     .warn { border-left:4px solid var(--accent-2); background:#fff7ed; padding:12px 14px; border-radius:6px; color:#4a2a14; }
     footer { color:var(--muted); border-top:1px solid var(--line); padding:18px 0 30px; }
@@ -37,7 +42,7 @@
     <div class="wrap hero">
       <div class="eyebrow">Codex Wiki</div>
       <h1>おすすめプラグイン</h1>
-      <p class="lead">PluginはSkills、外部アプリ連携、MCPサーバーをまとめてCodexへ追加する仕組みです。用途に合わせて最小限から入れます。</p>
+      <p class="lead">PluginはSkills、外部アプリ連携、MCPサーバーをまとめてCodexへ追加する仕組みです。単体のSkillで足りる作業と、Plugin化すべき作業を分けて考えます。</p>
     </div>
     <nav class="wrap top" aria-label="主要ページ">
       <a href="index.html">目次</a>
@@ -50,11 +55,25 @@
     <section>
       <h2>導入方針</h2>
       <ol>
-        <li>まずは業務上必要なPluginだけ入れます。</li>
+        <li>まずは業務上必要なPluginだけ入れます。迷う場合は単体のSkillから始めます。</li>
         <li>外部サービス接続は、認証アカウントと共有範囲を確認します。</li>
         <li>インストール後は新しいスレッドでPlugin名、目的、対象データを明示して試します。</li>
       </ol>
       <p class="warn">Pluginを入れても、承認設定は別途適用されます。外部サービスへ送られるデータは、そのサービス側の規約とプライバシーポリシーにも従います。</p>
+    </section>
+
+    <section>
+      <h2>Plugin、Skills、MCPの使い分け</h2>
+      <table>
+        <thead><tr><th>仕組み</th><th>向いていること</th><th>判断基準</th></tr></thead>
+        <tbody>
+          <tr><td>Skill</td><td>レビュー手順、リリースノート生成、調査テンプレートなどの再利用できる作業手順</td><td><code>SKILL.md</code> と必要な参照資料、スクリプトで完結するならSkillで十分</td></tr>
+          <tr><td>Plugin</td><td>Skill、アプリ連携、MCP、Hooks、アセットをまとめて配布するワークフロー</td><td>チームへインストール可能な形で配りたい、外部連携も一緒に渡したい場合</td></tr>
+          <tr><td>MCP</td><td>社内API、検索、DB、チケット管理など、Codexが使う外部ツールを増やす</td><td>手順ではなく、Codexが呼び出す道具やデータソースが必要な場合</td></tr>
+          <tr><td>Apps / Connectors</td><td>Google Drive、Slack、Gmailなど、認証付き外部サービスを扱う</td><td>ユーザーやワークスペースの権限で外部データへアクセスする場合</td></tr>
+          <tr><td>Hooks</td><td>コマンド実行や編集前後のチェックを自動化する</td><td>「必ず実行する」機械的なガードを入れたい場合</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <div class="grid">
@@ -126,11 +145,45 @@
     </div>
 
     <section>
+      <h2>まず作りたいSkills</h2>
+      <table>
+        <thead><tr><th>Skill</th><th>狙い</th><th>含めたいルール</th></tr></thead>
+        <tbody>
+          <tr><td>差分レビューSkill</td><td>レビューの観点、重大度、出力形式、確認コマンドを固定</td><td>セキュリティ、互換性、テスト不足を優先し、ファイルと行番号、残リスクを書く</td></tr>
+          <tr><td>ドキュメント更新Skill</td><td>仕様変更からREADME、社内Wiki、リリースノートの更新漏れを検出</td><td>既存の文体と見出し構造に合わせ、古い手順やスクリーンショットを探す</td></tr>
+          <tr><td>リリース準備Skill</td><td>差分、Issue、PR、テスト結果からリリース前チェックを整理</td><td>破壊的変更、移行手順、ロールバック案、未確認項目を分ける</td></tr>
+          <tr><td>調査レポートSkill</td><td>原因調査や技術選定を、根拠と未確認事項つきで整理</td><td>編集前に仮説、確認方法、根拠を分離し、一次情報を優先する</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>自作Pluginの最小構成</h2>
+      <p>Pluginとして配る場合は、ルート直下にSkillやMCP設定を置き、<code>.codex-plugin/plugin.json</code> から参照します。</p>
+      <pre><code>team-workflows/
+  .codex-plugin/
+    plugin.json
+  skills/
+    diff-review/
+      SKILL.md
+    release-notes/
+      SKILL.md
+  .mcp.json
+  hooks/
+    hooks.json
+  assets/
+    icon.png</code></pre>
+      <p>Pluginの識別子になる <code>name</code> は安定したkebab-caseにし、<code>skills</code>、<code>mcpServers</code>、<code>apps</code>、<code>hooks</code> はPluginルートからの相対パスで指定します。</p>
+    </section>
+
+    <section>
       <h2>使い始めの依頼例</h2>
       <ul>
         <li><code>@google-drive</code> を使って、このフォルダの最新仕様書を要約してください。</li>
         <li><code>@slack</code> を使って、昨日からの障害対応スレッドを時系列で整理してください。</li>
         <li>Codex Security pluginで現在の差分にセキュリティ上の問題がないか確認してください。</li>
+        <li><code>@diff-review</code> のSkillで、現在の差分を重大度順にレビューしてください。</li>
+        <li><code>/skills</code> で使えるSkillを確認し、今回のリリース準備に合うものを選んでください。</li>
       </ul>
     </section>
   </main>
