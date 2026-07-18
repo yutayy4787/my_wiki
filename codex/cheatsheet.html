@@ -44,7 +44,12 @@
       <a href="index.html">目次</a>
       <a href="usage.html">利用方法</a>
       <a href="examples.html">利用例</a>
+      <a href="cheatsheet.html">チートシート</a>
       <a href="plugins.html">おすすめプラグイン</a>
+      <a href="../gsd/install.html">GSD導入</a>
+      <a href="../gsd/usage.html">GSD利用手順</a>
+      <a href="../gsd/cheatsheet.html">GSDチートシート</a>
+      <a href="../gsd/examples.html">GSD活用例</a>
     </nav>
   </header>
   <main class="wrap">
@@ -61,8 +66,32 @@
           <tr><td><code>/status</code></td><td>現在のセッション状態を確認</td><td>モデル、権限、作業状態を見直す</td></tr>
           <tr><td><code>/compact</code></td><td>長い会話を要約してコンテキストを節約</td><td>長時間作業で履歴が重くなったとき</td></tr>
           <tr><td><code>/clear</code></td><td>表示と会話をリセットして新しく始める</td><td>前提を切り替えて別作業に移る</td></tr>
+          <tr><td><code>/new</code></td><td>同じCLI内で新しい会話を開始</td><td>同じリポジトリで別の作業に切り替える</td></tr>
+          <tr><td><code>/resume</code></td><td>保存済み会話を一覧から再開</td><td>前に中断した作業へ戻る</td></tr>
+          <tr><td><code>/fork</code></td><td>現在の会話を新しいスレッドへ分岐</td><td>今の文脈を残したまま別案を試す</td></tr>
+          <tr><td><code>/rollback</code></td><td>直前の会話ターンを取り消す</td><td>送った指示やその応答を履歴から戻したいとき</td></tr>
+          <tr><td><code>/redo</code></td><td><code>/rollback</code> で取り消したターンを復元</td><td>直前の取り消しをやはり戻したいとき</td></tr>
+          <tr><td><code>/side</code> / <code>/btw</code></td><td>一時的な横道の会話を開始</td><td>本筋の履歴を崩さず短い確認をする</td></tr>
           <tr><td><code>/copy</code></td><td>直近のCodex出力をコピー</td><td>計画、レビュー結果、説明文を転記する</td></tr>
           <tr><td><code>/exit</code> / <code>/quit</code></td><td>Codex CLIを終了</td><td>作業を終える</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>セッション管理</h2>
+      <table>
+        <thead><tr><th>コマンド</th><th>用途</th><th>使う場面</th></tr></thead>
+        <tbody>
+          <tr><td><code>codex</code></td><td>新しい対話セッションを開始</td><td>完全に新しい作業を始める</td></tr>
+          <tr><td><code>codex resume</code></td><td>過去セッションを一覧から再開</td><td>中断した作業、過去の文脈へ戻る</td></tr>
+          <tr><td><code>codex resume --last</code></td><td>直近セッションを即再開</td><td>さっきの続きに戻る</td></tr>
+          <tr><td><code>codex resume --all</code></td><td>作業ディレクトリに関係なく全セッションから選ぶ</td><td>別リポジトリで使った会話も探す</td></tr>
+          <tr><td><code>codex fork</code></td><td>過去セッションを分岐して新しいセッションにする</td><td>同じ前提から別案を試す</td></tr>
+          <tr><td><code>codex archive &lt;id&gt;</code></td><td>保存済みセッションをアーカイブ</td><td>一覧を整理する</td></tr>
+          <tr><td><code>codex unarchive &lt;id&gt;</code></td><td>アーカイブ済みセッションを戻す</td><td>過去作業を再び参照する</td></tr>
+          <tr><td><code>/rollback</code> / <code>/redo</code></td><td>現在のセッション内で直前ターンを取り消し、取り消しを戻す</td><td>会話ログ単位で undo / redo したいとき</td></tr>
+          <tr><td><code>git worktree add ../repo-task main</code></td><td>作業ツリーも分離して別セッションを開始</td><td>同じリポジトリで複数タスクを並行し、ファイル衝突を避ける</td></tr>
         </tbody>
       </table>
     </section>

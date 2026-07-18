@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GSD Wiki | 利用手順</title>
+  <style>
+    :root { --bg:#f6f7f9; --panel:#fff; --ink:#17202a; --muted:#607080; --line:#d9e0e7; --accent:#176b87; --accent-2:#d9480f; --soft:#e9f4f7; --code:#10212b; }
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7;color:var(--ink);background:var(--bg)} .wrap{width:min(1040px,calc(100% - 32px));margin:0 auto} header{background:#0f1f29;color:#fff;border-bottom:5px solid var(--accent)} .hero{padding:42px 0 24px}.eyebrow{color:#9bd3e1;font-weight:700;letter-spacing:.08em;font-size:.78rem;text-transform:uppercase}h1{margin:8px 0 10px;font-size:clamp(1.9rem,4vw,3.2rem);line-height:1.12}.lead{max-width:800px;margin:0;color:#d6e1e7}nav.top{display:flex;gap:8px;flex-wrap:wrap;padding:14px 0;border-top:1px solid rgba(255,255,255,.16)}nav.top a{color:#fff;text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.2);border-radius:6px;font-size:.92rem}main{padding:30px 0 56px}section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;margin:0 0 18px}h2{margin:0 0 12px;font-size:1.4rem;line-height:1.3}h3{margin:18px 0 8px;font-size:1.08rem}p{margin:0 0 12px}ul,ol{padding-left:1.25rem;margin:0 0 12px}li{margin:5px 0}table{width:100%;border-collapse:collapse;margin-top:10px}th,td{border:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}th{background:var(--soft)}code{color:#fff;background:var(--code);border-radius:4px;padding:.12em .36em;font-size:.92em}pre{padding:14px;overflow:auto;color:#fff;background:var(--code);border-radius:6px;line-height:1.5}pre code{padding:0;background:transparent}.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.step{padding:14px;background:var(--soft);border:1px solid #cfe4eb;border-radius:6px;text-align:center}.step strong{display:block;color:#0f5268}.note{border-left:4px solid var(--accent);background:var(--soft);padding:12px 14px;border-radius:6px}a{color:#12627b}footer{color:var(--muted);border-top:1px solid var(--line);padding:18px 0 30px}@media(max-width:760px){section{padding:18px}.flow{grid-template-columns:1fr}table{font-size:.92rem}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap hero"><div class="eyebrow">GSD Core for Codex CLI</div><h1>利用手順</h1><p class="lead">プロジェクトを初期化し、仕様を決め、フェーズごとに実装と検証を進める基本フローです。</p></div><nav class="wrap top" aria-label="主要ページ"><a href="../index.html">Wiki目次</a><a href="../codex/index.html">Codex Wiki</a><a href="install.html">GSD導入</a><a href="usage.html">GSD利用手順</a><a href="cheatsheet.html">GSDチートシート</a><a href="examples.html">GSD活用例</a></nav></header>
+  <main class="wrap">
+    <section>
+      <h2>基本のフェーズループ</h2>
+      <div class="flow" aria-label="GSDの基本フロー"><div class="step"><strong>1. Discuss</strong>実装判断を決める</div><div class="step"><strong>2. Plan</strong>調査して分解する</div><div class="step"><strong>3. Execute</strong>計画を実装する</div><div class="step"><strong>4. Verify</strong>受け入れ確認する</div><div class="step"><strong>5. Ship</strong>PRと記録を整える</div></div>
+      <p class="note">GSDは「大きな依頼を一度に実装する」のではなく、決定と成果物を小さなフェーズへ分け、各段階を確認可能にします。</p>
+    </section>
+
+    <section>
+      <h2>1. プロジェクトを準備する</h2>
+      <h3>新規プロジェクト</h3>
+      <pre><code>$gsd-new-project</code></pre>
+      <p>質問への回答からプロジェクトの目的、要件、対象外、ロードマップを作成します。曖昧なアイデアのまま実装へ進まず、最初に成功条件を決めます。</p>
+      <h3>既存のコードベース</h3>
+      <pre><code>$gsd-onboard</code></pre>
+      <p>既存コードの構造と現状を調査し、その上でGSDの計画コンテキストを作ります。旧手順の <code>$gsd-map-codebase</code> が案内された環境では、ヘルプと導入バージョンを確認してください。</p>
+      <p>初期化後は、少なくとも <code>PROJECT.md</code>、<code>REQUIREMENTS.md</code>、<code>ROADMAP.md</code>、<code>STATE.md</code> が意図どおりか人間が確認します。</p>
+    </section>
+
+    <section>
+      <h2>2. フェーズの判断を固める</h2>
+      <pre><code>$gsd-discuss-phase 1</code></pre>
+      <p>UI、API、互換性、エラー処理、対象外など、実装者が勝手に決めるべきでない事項を会話で確定します。ここでは実装方法の細部より、ユーザーが期待する振る舞いを優先します。</p>
+      <ul><li>必須の振る舞いと受け入れ条件</li><li>既存仕様で維持するもの</li><li>判断をCodexへ任せてよい範囲</li><li>今回扱わない要求</li></ul>
+    </section>
+
+    <section>
+      <h2>3. 実装計画を作る</h2>
+      <pre><code>$gsd-plan-phase 1</code></pre>
+      <p>コードベースと必要な技術情報を調査し、フェーズを実行可能な作業へ分解します。生成された計画では、変更対象、依存関係、検証方法、要求との対応を確認します。</p>
+      <p>計画が要求とずれている場合は、この段階で修正します。未確定事項が残ったまま実装へ進めないことが重要です。</p>
+    </section>
+
+    <section>
+      <h2>4. 計画を実行する</h2>
+      <pre><code>$gsd-execute-phase 1</code></pre>
+      <p>計画を依存関係に沿ったまとまりで実装し、テストとコミットを進めます。実行中に承認を求められた場合は、対象コマンド、外部通信、削除範囲を読んでから許可します。</p>
+      <ul><li>作業前に既存の未コミット変更を確認する</li><li>秘密情報や個人情報をプロンプトへ貼らない</li><li>生成された差分とテスト結果を人間が確認する</li><li>計画外の大きな変更は別フェーズへ戻す</li></ul>
+    </section>
+
+    <section>
+      <h2>5. 動作を検証して出荷する</h2>
+      <pre><code>$gsd-verify-work 1
+$gsd-ship 1</code></pre>
+      <p><code>$gsd-verify-work</code> は、実装された機能を受け入れ条件に沿って確認します。失敗した場合は原因調査と修正計画を作り、検証をやり直します。検証後の <code>$gsd-ship</code> はPR作成やフェーズの記録整理を進めます。</p>
+      <p>リポジトリの運用によってはPR作成やpushが外部変更になります。内容と宛先を確認し、必要な承認を得てから実行してください。</p>
+    </section>
+
+    <section>
+      <h2>中断後に再開する</h2>
+      <pre><code>$gsd-progress
+$gsd-progress --next</code></pre>
+      <p>最初のコマンドで現在位置、完了済み作業、次の候補を確認します。<code>--next</code> は状態から次のワークフローを選びます。新しいCodexセッションでも <code>.planning/</code> の状態を使って再開できます。</p>
+    </section>
+
+    <section>
+      <h2>主な計画ファイル</h2>
+      <table><thead><tr><th>ファイル</th><th>役割</th><th>確認観点</th></tr></thead><tbody><tr><td><code>PROJECT.md</code></td><td>ビジョン、制約、重要な判断</td><td>何を作るかが一文で説明できるか</td></tr><tr><td><code>REQUIREMENTS.md</code></td><td>要求、対象外、追跡状態</td><td>完了判定が曖昧でないか</td></tr><tr><td><code>ROADMAP.md</code></td><td>フェーズ分割と進捗</td><td>依存順とフェーズの大きさが妥当か</td></tr><tr><td><code>STATE.md</code></td><td>現在位置、判断、ブロッカー</td><td>次のセッションが迷わず再開できるか</td></tr><tr><td><code>CONTEXT.md</code></td><td>フェーズ固有の実装判断</td><td>Discussで決めた内容が反映されているか</td></tr></tbody></table>
+    </section>
+
+    <section><h2>参照資料</h2><ul><li><a href="https://github.com/open-gsd/gsd-core/blob/next/docs/tutorials/your-first-project.md">GSD Core: Your first project</a></li><li><a href="https://github.com/open-gsd/gsd-core/blob/next/docs/explanation/the-phase-loop.md">GSD Core: The phase loop</a></li><li><a href="https://github.com/open-gsd/gsd-core/blob/next/docs/COMMANDS.md">GSD Core command reference</a></li></ul><p>確認日: 2026-07-18</p></section>
+  </main><footer><div class="wrap">GSD Wiki for Codex CLI</div></footer>
+</body></html>

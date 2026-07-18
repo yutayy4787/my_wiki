@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GSD Wiki | インストール</title>
+  <style>
+    :root { --bg:#f6f7f9; --panel:#fff; --ink:#17202a; --muted:#607080; --line:#d9e0e7; --accent:#176b87; --accent-2:#d9480f; --soft:#e9f4f7; --code:#10212b; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.7; color:var(--ink); background:var(--bg); }
+    .wrap { width:min(1040px, calc(100% - 32px)); margin:0 auto; }
+    header { background:#0f1f29; color:#fff; border-bottom:5px solid var(--accent); }
+    .hero { padding:42px 0 24px; }
+    .eyebrow { color:#9bd3e1; font-weight:700; letter-spacing:.08em; font-size:.78rem; text-transform:uppercase; }
+    h1 { margin:8px 0 10px; font-size:clamp(1.9rem,4vw,3.2rem); line-height:1.12; }
+    .lead { max-width:800px; margin:0; color:#d6e1e7; }
+    nav.top { display:flex; gap:8px; flex-wrap:wrap; padding:14px 0; border-top:1px solid rgba(255,255,255,.16); }
+    nav.top a { color:#fff; text-decoration:none; padding:8px 12px; border:1px solid rgba(255,255,255,.2); border-radius:6px; font-size:.92rem; }
+    main { padding:30px 0 56px; }
+    section { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:22px; margin:0 0 18px; }
+    h2 { margin:0 0 12px; font-size:1.4rem; line-height:1.3; }
+    h3 { margin:18px 0 8px; font-size:1.08rem; }
+    p { margin:0 0 12px; }
+    ul, ol { padding-left:1.25rem; margin:0 0 12px; }
+    li { margin:5px 0; }
+    table { width:100%; border-collapse:collapse; margin-top:10px; }
+    th, td { border:1px solid var(--line); padding:10px; text-align:left; vertical-align:top; }
+    th { background:var(--soft); }
+    code { color:#fff; background:var(--code); border-radius:4px; padding:.12em .36em; font-size:.92em; }
+    pre { padding:14px; overflow:auto; color:#fff; background:var(--code); border-radius:6px; line-height:1.5; }
+    pre code { padding:0; background:transparent; }
+    .note { border-left:4px solid var(--accent); background:var(--soft); padding:12px 14px; border-radius:6px; }
+    .warn { border-left:4px solid var(--accent-2); background:#fff7ed; padding:12px 14px; border-radius:6px; color:#4a2a14; }
+    a { color:#12627b; }
+    footer { color:var(--muted); border-top:1px solid var(--line); padding:18px 0 30px; }
+    @media (max-width:760px){ section{padding:18px;} table{font-size:.92rem;} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div class="eyebrow">GSD Core for Codex CLI</div>
+      <h1>インストール</h1>
+      <p class="lead">現行のGSD CoreをCodex CLIへ安全に導入し、Skillが認識されるところまで確認します。</p>
+    </div>
+    <nav class="wrap top" aria-label="主要ページ">
+      <a href="../index.html">Wiki目次</a><a href="../codex/index.html">Codex Wiki</a><a href="install.html">GSD導入</a><a href="usage.html">GSD利用手順</a><a href="cheatsheet.html">GSDチートシート</a><a href="examples.html">GSD活用例</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <section>
+      <h2>GSD Coreとは</h2>
+      <p>GSD Core（Git. Ship. Done.）は、要件、ロードマップ、実装計画、検証結果をファイルに残しながら、Codexの調査・計画・実装をフェーズ単位で進める仕組みです。長い会話だけに状態を持たせず、プロジェクト内の <code>.planning/</code> を継続的な記録として使います。</p>
+      <p class="note">このWikiでは、現在メンテナンスされている <code>@opengsd/gsd-core</code> を標準とします。CodexではGSDコマンドがSkillとして入り、<code>$gsd-help</code> のように呼び出します。</p>
+    </section>
+
+    <section>
+      <h2>必要な環境</h2>
+      <table>
+        <thead><tr><th>項目</th><th>条件</th><th>確認</th></tr></thead>
+        <tbody>
+          <tr><td>Node.js</td><td>18以上。インストーラーの実行に必要</td><td><code>node --version</code></td></tr>
+          <tr><td>npm / npx</td><td>Node.jsに付属する現行版</td><td><code>npx --version</code></td></tr>
+          <tr><td>Codex CLI</td><td>0.130.0以上。Hook連携を含めるなら0.137.0以上を推奨</td><td><code>codex --version</code></td></tr>
+          <tr><td>Git</td><td>対象プロジェクトがGitリポジトリであることを推奨</td><td><code>git status</code></td></tr>
+        </tbody>
+      </table>
+      <p class="warn">インストーラーはCodexのSkill、エージェント設定、Hook設定をランタイム向けに変換します。GitHubリポジトリからファイルを直接コピーしないでください。</p>
+    </section>
+
+    <section>
+      <h2>インストール</h2>
+      <h3>全プロジェクトで使う</h3>
+      <pre><code>npx @opengsd/gsd-core@latest --codex --global</code></pre>
+      <p>個人環境へ入れる標準的な方法です。Skillは <code>~/.codex/skills/gsd-*/SKILL.md</code> に入り、Codexの設定へGSD用エージェントとHookが追加されます。</p>
+      <h3>現在のプロジェクトだけで使う</h3>
+      <pre><code>cd /path/to/project
+npx @opengsd/gsd-core@latest --codex --local</code></pre>
+      <p>チームで同じGSD構成を共有したい場合や、個人設定へ影響させたくない場合に使います。生成物をGit管理するかは、内容とチーム方針を確認して決めてください。</p>
+      <table>
+        <thead><tr><th>方式</th><th>向いている場面</th><th>注意点</th></tr></thead>
+        <tbody>
+          <tr><td><code>--global</code></td><td>自分が複数のリポジトリでGSDを使う</td><td>個人のCodex設定全体へ適用される</td></tr>
+          <tr><td><code>--local</code></td><td>特定リポジトリだけで使う、チーム導入を試す</td><td>対象リポジトリの設定と既存ファイルを確認する</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>導入確認</h2>
+      <ol>
+        <li>インストーラーがエラーなく終了したことを確認します。</li>
+        <li>実行中のCodexを終了して再起動します。対応版では <code>codex --reload</code> も利用できます。</li>
+        <li>対象リポジトリでCodexを起動し、GSDのヘルプを呼び出します。</li>
+      </ol>
+      <pre><code>cd /path/to/project
+codex
+
+# Codexの入力欄
+$gsd-help</code></pre>
+      <p>候補が表示されない場合は、<code>/skills</code> または入力欄で <code>$</code> を入力し、<code>gsd-</code> で始まるSkillを探します。</p>
+    </section>
+
+    <section>
+      <h2>更新と削除</h2>
+      <h3>更新</h3>
+      <pre><code>npx @opengsd/gsd-core@latest --codex --global</code></pre>
+      <p>インストーラーは再実行可能です。Codex内からは <code>$gsd-update</code> でも更新を確認できます。更新後はCodexを再起動します。</p>
+      <h3>アンインストール</h3>
+      <pre><code>npx @opengsd/gsd-core@latest --codex --global --uninstall
+
+# ローカル導入を削除する場合
+npx @opengsd/gsd-core@latest --codex --local --uninstall</code></pre>
+      <p>GSDが管理するSkill、エージェント、Hookを削除します。プロジェクトの <code>.planning/</code> を削除する場合は、必要な履歴が残っているか別途確認してください。</p>
+    </section>
+
+    <section>
+      <h2>旧版との混同に注意</h2>
+      <p>旧 <code>gsd-build/get-shit-done</code> はアーカイブされ、開発先は <code>open-gsd/gsd-core</code> へ移っています。旧 <code>get-shit-done-cc</code> や非推奨の移行途中パッケージではなく、<code>@opengsd/gsd-core</code> を使います。</p>
+      <p>Codex専用Forkも存在しますが、通常利用ではCodexを正式サポートするGSD Coreを優先します。既存環境から切り替える場合は、旧GSDをアンインストールしてからGSD Coreを導入し、Skillの重複がないことを確認してください。</p>
+    </section>
+
+    <section>
+      <h2>参照資料</h2>
+      <ul>
+        <li><a href="https://github.com/open-gsd/gsd-core">GSD Core公式リポジトリ</a></li>
+        <li><a href="https://github.com/open-gsd/gsd-core/blob/next/docs/how-to/install-on-your-runtime.md">GSD Core: Install on your runtime</a></li>
+        <li><a href="https://developers.openai.com/codex/skills">OpenAI: Codex Skills</a></li>
+      </ul>
+      <p>確認日: 2026-07-18</p>
+    </section>
+  </main>
+  <footer><div class="wrap">GSD Wiki for Codex CLI</div></footer>
+</body>
+</html>
